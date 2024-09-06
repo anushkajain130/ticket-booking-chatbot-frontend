@@ -1,0 +1,38 @@
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f0f4f8, #d9e3f0);
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pay-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #3399cc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.pay-button:hover {
+  background-color: #287aa9;
+  transform: scale(1.05);
+}
+
+.pay-button:active {
+  background-color: #23668a;
+  transform: scale(1);
+}

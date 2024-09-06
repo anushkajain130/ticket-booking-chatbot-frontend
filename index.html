@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- Add this script in your public/index.html or equivalent -->
+    <!-- <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script> -->
+    <!-- <script src="https://mediafiles.botpress.cloud/52345432-5432543-5435-435545434/webchat/v2/config.js"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
+    <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+    <script defer>
+      // window.botpress.on('*', (event) => {
+      //   Toastify({ text: `Event: ${event.type}` }).showToast();
+      // });
+  
+      // window.botpress.on('webchat:ready', (conversationId) => {
+      //   Toastify({ text: 'Webchat Ready' }).showToast();
+      // });
+  
+      // window.botpress.on('webchat:opened', (conversationId) => {
+      //   Toastify({ text: 'Webchat Opened' }).showToast();
+      // });
+  
+      // window.botpress.on('webchat:closed', (conversationId) => {
+      //   Toastify({ text: `Webchat Closed` }).showToast();
+      // });
+  
+      // window.botpress.on('conversation', (conversationId) => {
+      //   Toastify({ text: `Conversation: ${conversationId}` }).showToast();
+      // });
+  
+      // window.botpress.on('message', (message) => {
+      //   Toastify({ text: `Message Received: ${message.id}` }).showToast();
+      // });
+  
+      // window.botpress.on('messageSent', (message) => {
+      //   Toastify({ text: `Message Sent: ${message}` }).showToast();
+      // });
+  
+      // window.botpress.on('error', (error) => {
+      //   Toastify({ text: `Error: ${error}` }).showToast();
+      // });
+  
+      // window.botpress.on('webchatVisibility', (visibility) => {
+      //   Toastify({ text: `Visibility: ${visibility}` }).showToast();
+      // });
+  
+      // window.botpress.on('webchatConfig', (visibility) => {
+      //   Toastify({ text: 'Webchat Config' }).showToast();
+      // });
+  
+      // window.botpress.on('customEvent', (anyEvent) => {
+      //   Toastify({ text: 'Received a custom event' }).showToast();
+      // });
+    </script>
+    <script src="https://mediafiles.botpress.cloud/e1688101-bb5e-4c02-9ec8-2f26410e48bb/webchat/v2/config.js"
+      defer></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

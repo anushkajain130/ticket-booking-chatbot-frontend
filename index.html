@@ -57,6 +57,20 @@
       //   Toastify({ text: 'Received a custom event' }).showToast();
       // });
     </script>
+
+<!-- <script>
+  window.botpressWebChat.onEvent(async function(event) {
+    if (event.type === 'session_started') {
+      // Access the sessionId (which is the userId)
+      const userId = window.botpressWebChat.sessionId;
+
+      // Store it in the window object or use it in your application
+      window.userId = userId;
+      console.log('User ID (sessionId):', window.userId);
+    }
+  });
+</script> -->
+
     <script src="https://mediafiles.botpress.cloud/e1688101-bb5e-4c02-9ec8-2f26410e48bb/webchat/v2/config.js"
       defer></script>
   </head>

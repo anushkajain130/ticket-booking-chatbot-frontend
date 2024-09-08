@@ -54,7 +54,9 @@ const handlePayment = async () => {
     }
 
     const user = await userResponse.json();
-    console.log('User details:', user);
+    console.log('User details:', user.users);
+
+  
 
     // Step 2: Create an order by calling the payment endpoint
     const paymentResponse = await fetch('https://ticket-booking-chatbot-chi.vercel.app/payment/booktickets', {
@@ -63,13 +65,13 @@ const handlePayment = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        museum: user.museum,
-        shows: user.shows,
-        tickets: user.nooftickets,
+        museum: user.users[0].museum,
+        shows: user.users[0].shows,
+        tickets: user.users[0].nooftickets,
         details: {
-          name: user.name,
-          email: user.email,
-          phone: `+91${user.phone}`,
+          name: user.users[0].name,
+          email: user.users[0].email,
+          phone: `+91${user.users[0].phone}`,
         },
       }),
     });
@@ -115,9 +117,9 @@ const handlePayment = async () => {
             order_id: response.razorpay_order_id,
             payment_id: response.razorpay_payment_id,
             signature: response.razorpay_signature,
-            museum: user.museum, // Replace with actual values //user.museum
-            shows: user.shows, // Replace with actual values // user.shows
-            tickets: user.nooftickets, //user.nooftickets
+            museum: user.users[0].museum, // Replace with actual values //user.museum
+            shows: user.users[0].shows, // Replace with actual values // user.shows
+            tickets: user.users[0].nooftickets, //user.nooftickets
           }),
         })
           .then((res) => res.json())
@@ -135,9 +137,9 @@ const handlePayment = async () => {
           });
       },
       prefill: {
-        name:user.name, //user.name
-        email: user.email, //user.email
-        contact:`+91${user.phone}`,
+        name:user.users[0].name, //user.name
+        email: user.users[0].email, //user.email
+        contact:`+91${user.users[0].phone}`,
       },
       theme: {
         color: '#3399cc',

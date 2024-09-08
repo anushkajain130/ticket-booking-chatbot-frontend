@@ -1,6 +1,7 @@
 // App.js
 import React from 'react';
 import './App.css'; // Importing CSS for styling
+import ticketIcon from './assets/ticket.png'; // Importing ticket icon
 
 import { useState } from 'react';
 
@@ -149,13 +150,22 @@ const handlePayment = async () => {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-
+  let bookingAcepted = true;
+  // let bookingAcepted = false;
   return (
     <div className="app-container">
-      <h1 className="title">Museum Ticket Booking</h1>
-      <button className="pay-button" onClick={handlePayment}>
-        Pay Now
-      </button>
+       {bookingAcepted && (
+    <>
+      <div className="modal-overlay"></div> {/* Background overlay */}
+      <div className="modal-container">
+        <h1 className="title">Museum Ticket Booking</h1>
+        <button className="pay-button" onClick={handlePayment}>
+          <img src={ticketIcon} alt="ticket-icon" className='button-icon'/>
+          Pay Now
+        </button>
+      </div>
+    </>
+  )}     
     </div>
   );
 };

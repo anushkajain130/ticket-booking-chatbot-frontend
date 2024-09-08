@@ -1,17 +1,44 @@
 // App.js
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css'; // Importing CSS for styling
-import ticketIcon from './assets/ticket.png'; // Importing ticket icon
-
+import ticketIcon from './assets/ticket.png'; 
+// import { Carousel } from "antd";
 import { useState } from 'react';
+import image1 from "./assets/elizabeth-george-E_evIcvACS8-unsplash.jpg"
+import image2 from "./assets/alicia-steels-PA2rnR4pF9A-unsplash.jpg"
+import image3 from "./assets/girl-with-red-hat-raHqU5xaGng-unsplash.jpg"
+import image4 from "./assets/robin-schreiner-YKE4zTW5lic-unsplash.jpg"
+// import React, { useRef, useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-creative';
+import 'swiper/css/effect-fade';
+// import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+// import './styles.css';
+
+// import required modules
+import { EffectCreative , Pagination, Autoplay } from 'swiper/modules';
 
 const App = () => {
 
+// carousel
+
+
+
   // const [user, setUser] = useState({});
 
-
-  const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
-
+  useEffect (() =>{
+    const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
+    console.log(value)
+    // console.log(value.state.user.userId]);
+  })
+  // const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
+  // console.log(value)
   // console.log(value.state.user.userId);
 
 
@@ -150,10 +177,47 @@ const handlePayment = async () => {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-  let bookingAcepted = true;
-  // let bookingAcepted = false;
+  let bookingAcepted = false;
+  // let bookingAcepted = value.state.user.accepted;
   return (
+
+
     <div className="app-container">
+      {/* carousel */}
+  <div className='carousel'>
+      <Swiper
+        grabCursor={true}
+        effect={'creative'}
+        creativeEffect={{
+          prev: {
+            shadow: true,
+            translate: [0, 0, -400],
+          },
+          next: {
+            translate: ['100%', 0, 0],
+          },
+        }}
+        navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        autoplay={{
+          delay: 200,  
+          disableOnInteraction: false,  
+        }}
+        // fadeEffect={{
+        //   crossFade: true,
+        // }}
+        modules={[EffectCreative , Pagination]}
+        className="mySwiper"
+      >
+        <SwiperSlide><img src={image1} alt="" /></SwiperSlide>
+        <SwiperSlide><img src={image2} alt="" /></SwiperSlide>
+        <SwiperSlide><img src={image3} alt="" /></SwiperSlide>
+        <SwiperSlide><img src={image4} alt="" /></SwiperSlide>
+        
+      </Swiper>
+      </div>
        {bookingAcepted && (
     <>
       <div className="modal-overlay"></div> {/* Background overlay */}

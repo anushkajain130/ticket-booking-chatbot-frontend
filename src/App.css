@@ -1,38 +1,99 @@
 /* App.css */
+/* @import url(https://fonts.googleapis.com/css?family=Cherry+Swash); */
+@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
 .app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #f0f4f8, #d9e3f0);
-  font-family: Arial, sans-serif;
+  width: 100vw;
+  /* background: linear-gradient(135deg, #f0f4f8, #d9e3f0); */
+  background-size: cover;       
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-image: url("./assets/background.jpg");
+  /* font-family: Arial, sans-serif; */
+  /* font-family: 'Cherry Swash'; */
+  font-family: 'Sigmar One';
 }
-
+.modal-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap:3rem;
+  z-index: 10001;
+  height: 50vh;
+  width: 70vw;
+  /* text-decoration: underline; */
+  /* background: rgba( 0, 0, 0, 0.7 );
+/* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+/* backdrop-filter: blur( 6.5px );
+-webkit-backdrop-filter: blur( 6.5px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 ); */ 
+background: rgba( 255, 255, 255, 0.3 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 6.5px );
+-webkit-backdrop-filter: blur( 6.5px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+/* z-index: 1000; */
+}
+.modal-overlay {
+  position: fixed; /* Full screen overlay */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;       
+  background-position: center;  
+  background-repeat: no-repeat; 
+  background-image: url("./assets/background.jpg");
+  /* background: rgba( 0, 0, 0, 0.7 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 6.5px );
+-webkit-backdrop-filter: blur( 6.5px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+  z-index:10000 ;
+}
 .title {
-  font-size: 2rem;
-  color: #333;
+  font-size: 2.5rem;
+  color: #ffffff;
   margin-bottom: 20px;
   text-align: center;
+  -webkit-text-stroke: black 1.5px;
 }
 
 .pay-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 15px 30px;
   font-size: 1.2rem;
-  color: #fff;
-  background-color: #3399cc;
+  color: #ffffff;
+  background-color: #097969;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
 }
 
+.button-icon {
+  width: 2rem; 
+  /* height: 24px; */
+  margin-right: 1rem; 
+  color: #ffffff;
+}
 .pay-button:hover {
-  background-color: #287aa9;
+  background-color: #097969;
   transform: scale(1.05);
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
 }
 
 .pay-button:active {
-  background-color: #23668a;
+  background-color: #097969;
   transform: scale(1);
 }

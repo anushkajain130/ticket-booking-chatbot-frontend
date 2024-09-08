@@ -3,38 +3,100 @@ import React from 'react';
 import './App.css'; // Importing CSS for styling
 import ticketIcon from './assets/ticket.png'; // Importing ticket icon
 
-const App = () => {
-  const handlePayment = async () => {
-    try {
-      // Step 1: Create an order by calling your backend
-      const response = await fetch('http://localhost:4000/payment/booktickets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          museum: 'Science City', // Replace with actual values
-          shows: ['Rosetta Stone Display'], // Replace with actual values
-          tickets: 10, // Replace with the number of tickets
-          details: {
-            name: 'Anmol',
-            email: 'anmolsoni5304@gmail.com',
-            phone: '+917000631540',
-          },
-        }),
-      });
+import { useState } from 'react';
 
-      const data = await response.json();
-      if (data.status === 'success') {
-        initiatePayment(data.order_id, data.amount, data.key_id); // Use the order details from your backend
-      } else {
-        alert('Error creating order');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Failed to create order');
+const App = () => {
+
+  // const [user, setUser] = useState({});
+
+
+  const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
+
+  // console.log(value.state.user.userId);
+
+
+
+//  const getdata = async ()=>{
+//   try{
+//     const url = new URL('https://ticket-booking-chatbot-chi.vercel.app/user/getuser');
+//     url.searchParams.append('userid', value.state.user.userId);
+//     const res= await fetch(
+//         url.toString()
+//     )
+
+//     console.log(res);
+
+//     const userdata = await res.json();
+
+//     console.log(userdata)
+
+
+//       setUser(userdata)
+
+//   }
+//   catch (error) {
+//     console.error('Error:', error);
+//     alert('Failed to get user');
+//   }
+//  }
+
+
+
+const handlePayment = async () => {
+  try {
+    // Step 1: Fetch user details from the backend
+    const userId = value.state.user.userId;
+    const userUrl = `https://ticket-booking-chatbot-chi.vercel.app/user/getuser?userid=${userId}`;
+    
+    const userResponse = await fetch(userUrl);
+    
+    if (!userResponse.ok) {
+      throw new Error(`Error fetching user details: ${userResponse.statusText}`);
     }
-  };
+
+    const user = await userResponse.json();
+    console.log('User details:', user.users);
+
+  
+
+    // Step 2: Create an order by calling the payment endpoint
+    const paymentResponse = await fetch('https://ticket-booking-chatbot-chi.vercel.app/payment/booktickets', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        museum: user.users[0].museum,
+        shows: user.users[0].shows,
+        tickets: user.users[0].nooftickets,
+        details: {
+          name: user.users[0].name,
+          email: user.users[0].email,
+          phone: `+91${user.users[0].phone}`,
+        },
+      }),
+    });
+
+    if (!paymentResponse.ok) {
+      throw new Error(`Error creating order: ${paymentResponse.statusText}`);
+    }
+
+    const paymentData = await paymentResponse.json();
+
+    // Step 3: Handle payment initiation
+    if (paymentData.status === 'success') {
+      initiatePayment(paymentData.order_id, paymentData.amount, paymentData.key_id);
+    } else {
+      alert('Error creating order');
+    }
+  } catch (error) {
+    console.error('Payment error:', error);
+    alert(`Failed to process payment: ${error.message}`);
+  }
+};
+
+
+  
 
   const initiatePayment = (orderId, amount, key) => {
     const options = {
@@ -47,7 +109,7 @@ const App = () => {
       handler: function (response) {
         alert('Payment Successful!');
         // Send payment details back to the server
-        fetch('http://localhost:4000/payment/confirm-payment', {
+        fetch('https://ticket-booking-chatbot-chi.vercel.app/payment/confirm-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -56,9 +118,9 @@ const App = () => {
             order_id: response.razorpay_order_id,
             payment_id: response.razorpay_payment_id,
             signature: response.razorpay_signature,
-            museum: 'Science City', // Replace with actual values
-            shows: ['Rosetta Stone Display'], // Replace with actual values
-            tickets: 10,
+            museum: user.users[0].museum, // Replace with actual values //user.museum
+            shows: user.users[0].shows, // Replace with actual values // user.shows
+            tickets: user.users[0].nooftickets, //user.nooftickets
           }),
         })
           .then((res) => res.json())
@@ -76,9 +138,9 @@ const App = () => {
           });
       },
       prefill: {
-        name: 'Anmol',
-        email: 'anmolsoni5304@gmail.com',
-        contact: '+917000631540',
+        name:user.users[0].name, //user.name
+        email: user.users[0].email, //user.email
+        contact:`+91${user.users[0].phone}`,
       },
       theme: {
         color: '#3399cc',

@@ -53,6 +53,8 @@ const handlePayment = async () => {
 
     const curremail = value.state.messageHistory[userId][3];
 
+    console.log('Current email:', curremail); 
+
  
     const userUrl = `https://ticket-booking-chatbot-chi.vercel.app/user/getuser?email=${curremail}`;
     
@@ -84,6 +86,8 @@ const handlePayment = async () => {
         },
       }),
     });
+
+    console.log(paymentResponse);
 
     if (!paymentResponse.ok) {
       throw new Error(`Error creating order: ${paymentResponse.statusText}`);
@@ -158,12 +162,12 @@ const handlePayment = async () => {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-  let bookingAcepted = true;
+  // let bookingAcepted = false;
   // let bookingAcepted = false;
   return (
     <div className="app-container">
-       {bookingAcepted && (
-    <>
+  
+    
       <div className="modal-overlay"></div> {/* Background overlay */}
       <div className="modal-container">
         <h1 className="title">Museum Ticket Booking</h1>
@@ -172,8 +176,8 @@ const handlePayment = async () => {
           Pay Now
         </button>
       </div>
-    </>
-  )}     
+    
+    
     </div>
   );
 };

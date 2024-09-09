@@ -3,9 +3,9 @@
 @import url(https://fonts.googleapis.com/css?family=Sigmar+One);
 .app-container {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
-  justify-content: center;
+  /* justify-content: space-between; */
   height: 100vh;
   width: 100vw;
   /* background: linear-gradient(135deg, #f0f4f8, #d9e3f0); */
@@ -17,6 +17,43 @@
   /* font-family: 'Cherry Swash'; */
   font-family: 'Sigmar One';
 }
+.carousel{
+  margin: 5rem;
+}
+.swiper {
+  margin: 100px auto;
+  width: 50vw;
+  height: 50vh;
+  margin: 100px 0 100px 50px; /* Adjusting margin to position Swiper more to the left */
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  align-items: flex-start; /* Aligns items to the left */
+  /* justify-content: flex-start;  */
+  justify-self: left;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 10px white; 
+  border-radius: 2rem;
+   
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  /* border: 10px solid black; */
+  
+}
+
 .modal-container{
   display: flex;
   flex-direction: column;

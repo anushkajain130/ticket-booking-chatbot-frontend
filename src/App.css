@@ -1,104 +1,99 @@
-/* App.css */
-/* @import url(https://fonts.googleapis.com/css?family=Cherry+Swash); */
-@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
+
+/* @import url(https://fonts.googleapis.com/css?family=Sigmar+One); */
+
 .app-container {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
-  /* justify-content: space-between; */
-  height: 100vh;
+  /* height: 100vh; */
   width: 100vw;
-  /* background: linear-gradient(135deg, #f0f4f8, #d9e3f0); */
   background-size: cover;       
   background-position: center;  
   background-repeat: no-repeat; 
-  background-image: url("./assets/background.jpg");
-  /* font-family: Arial, sans-serif; */
-  /* font-family: 'Cherry Swash'; */
-  font-family: 'Sigmar One';
-}
-.carousel{
-  margin: 5rem;
-}
-.swiper {
-  margin: 100px auto;
-  width: 50vw;
-  height: 50vh;
-  margin: 100px 0 100px 50px; /* Adjusting margin to position Swiper more to the left */
-  width: 50vw;
-  height: 50vh;
-  display: flex;
-  align-items: flex-start; /* Aligns items to the left */
-  /* justify-content: flex-start;  */
-  justify-self: left;
+  /* background-image: url("./assets/background.jpg"); */
+  /* font-family: 'Sigmar One'; */
+  overflow-y: hidden;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
 }
 
-.swiper-slide {
+.overlay-container{
+  width: 100vw;
+  /* height: 100vh; */
+  padding: 0 1rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  font-size: 22px;
-  font-weight: bold;
-  color: #fff;
-  background-position: center;
-  background-size: cover;
-  box-shadow: 10px white; 
-  border-radius: 2rem;
-   
+  /* align-items: center; */
+  background-color: #ffffff;
 }
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  /* border: 10px solid black; */
+h2{
+  color: #efe6ad !important;
+  font-size: 2rem;
   
+  text-align: center;
 }
 
 .modal-container{
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap:3rem;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: left;
+  /* gap:1rem; */
+  font-size: 1rem !important;
+  font-weight: 300;
   z-index: 10001;
-  height: 50vh;
+  /* height: fit-content; */
   width: 70vw;
-  /* text-decoration: underline; */
-  /* background: rgba( 0, 0, 0, 0.7 );
-/* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
-/* backdrop-filter: blur( 6.5px );
--webkit-backdrop-filter: blur( 6.5px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 ); */ 
-background: rgba( 255, 255, 255, 0.3 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 6.5px );
--webkit-backdrop-filter: blur( 6.5px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-/* z-index: 1000; */
+  height: 100%;
+  padding: 1rem;
+  margin: auto;
+ background: #000000;
+ color: #ffffff !important;
+ border-radius: 10px;
+ /* border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+
+}
+.modal-container h2{
+  font-size: 2rem;
+  color: #ffffff !important;
+  padding: 0;
+  margin: 0;
+  /* margin-bottom: 20px; */
+  /* text-align: center; */
 }
 .modal-overlay {
   position: fixed; /* Full screen overlay */
+  padding: 2rem auto ;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-size: cover;       
   background-position: center;  
   background-repeat: no-repeat; 
-  background-image: url("./assets/background.jpg");
-  /* background: rgba( 0, 0, 0, 0.7 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 6.5px );
--webkit-backdrop-filter: blur( 6.5px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 ); */
+  background-color: black;
   z-index:10000 ;
+  overflow: scroll !important;
+}
+.sub-title{
+  margin: .5rem;
+}
+.detail{
+  font-weight: 300 !important;
+  padding: 0;
+  margin: .5rem;
+}
+.details{
+  margin: 1rem;
 }
 .title {
   font-size: 2.5rem;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
   margin-bottom: 20px;
   text-align: center;
   -webkit-text-stroke: black 1.5px;
@@ -133,4 +128,16 @@ border: 1px solid rgba( 255, 255, 255, 0.18 ); */
 .pay-button:active {
   background-color: #097969;
   transform: scale(1);
+}
+
+@media screen and (min-width:1500px){
+  .overlay-container{
+    align-items: center;
+  }
+  .modal-container{
+    font-size: 1.5rem !important;
+  }
+  .app-container{
+    /* overflow-x: hidden; */
+  }
 }

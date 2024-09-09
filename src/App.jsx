@@ -1,71 +1,42 @@
 // App.js
 import React, {useEffect} from 'react';
-import './App.css'; // Importing CSS for styling
+import './App.css'; 
 import ticketIcon from './assets/ticket.png'; 
-// import { Carousel } from "antd";
 import { useState } from 'react';
 import image1 from "./assets/elizabeth-george-E_evIcvACS8-unsplash.jpg"
 import image2 from "./assets/alicia-steels-PA2rnR4pF9A-unsplash.jpg"
 import image3 from "./assets/girl-with-red-hat-raHqU5xaGng-unsplash.jpg"
 import image4 from "./assets/robin-schreiner-YKE4zTW5lic-unsplash.jpg"
-// import React, { useRef, useState } from 'react';
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-creative';
-import 'swiper/css/effect-fade';
-// import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-// import './styles.css';
-
-// import required modules
-import { EffectCreative , Pagination, Autoplay } from 'swiper/modules';
-
+import Carousel from './component/carousel';
+import PayNowCard from './component/payNowCard';
+import DisplayCard from './component/displayCard';
 const App = () => {
 
-// carousel
-
-
-
-  // const [user, setUser] = useState({});
+  const getusers = async () => {
+    
+    try{
+      const response = await fetch('https://ticket-booking-chatbot-chi.vercel.app/user/getusers');
+      
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+    if (!response.ok) {
+      throw new Error(`Error fetching users: ${response.statusText}`);
+    }
+    const data = await response.json();
+    console.log('Users:', data.users);
+    return data.users;
+  }
 
   useEffect (() =>{
     const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
     console.log(value)
     // console.log(value.state.user.userId]);
   })
-  // const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
-  // console.log(value)
-  // console.log(value.state.user.userId);
-
-
-
-//  const getdata = async ()=>{
-//   try{
-//     const url = new URL('https://ticket-booking-chatbot-chi.vercel.app/user/getuser');
-//     url.searchParams.append('userid', value.state.user.userId);
-//     const res= await fetch(
-//         url.toString()
-//     )
-
-//     console.log(res);
-
-//     const userdata = await res.json();
-
-//     console.log(userdata)
-
-
-//       setUser(userdata)
-
-//   }
-//   catch (error) {
-//     console.error('Error:', error);
-//     alert('Failed to get user');
-//   }
-//  }
+ 
 
 
 
@@ -73,15 +44,14 @@ const handlePayment = async () => {
   try {
     // Step 1: Fetch user details from the backend
     const userId = value.state.user.userId;
-    const userUrl = `https://ticket-booking-chatbot-chi.vercel.app/user/getuser?userid=${userId}`;
-    
+    const userUrl = `https://ticket-booking-chatbot-chi.vercel.app/user/getuser?userid=${userId}`; 
     const userResponse = await fetch(userUrl);
     
     if (!userResponse.ok) {
       throw new Error(`Error fetching user details: ${userResponse.statusText}`);
     }
 
-    const user = await userResponse.json();
+    let user = await userResponse.json();
     console.log('User details:', user.users);
 
   
@@ -177,61 +147,25 @@ const handlePayment = async () => {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-  let bookingAcepted = false;
+  let bookingAcepted  = false;
   // let bookingAcepted = value.state.user.accepted;
   return (
 
 
     <div className="app-container">
-      {/* carousel */}
-  <div className='carousel'>
-      <Swiper
-        grabCursor={true}
-        effect={'creative'}
-        creativeEffect={{
-          prev: {
-            shadow: true,
-            translate: [0, 0, -400],
-          },
-          next: {
-            translate: ['100%', 0, 0],
-          },
-        }}
-        navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 200,  
-          disableOnInteraction: false,  
-        }}
-        // fadeEffect={{
-        //   crossFade: true,
-        // }}
-        modules={[EffectCreative , Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img src={image1} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={image2} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={image3} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={image4} alt="" /></SwiperSlide>
-        
-      </Swiper>
-      </div>
-       {bookingAcepted && (
-    <>
-      <div className="modal-overlay"></div> {/* Background overlay */}
-      <div className="modal-container">
-        <h1 className="title">Museum Ticket Booking</h1>
-        <button className="pay-button" onClick={handlePayment}>
-          <img src={ticketIcon} alt="ticket-icon" className='button-icon'/>
-          Pay Now
-        </button>
-      </div>
-    </>
-  )}     
+      <div className='overlay-container'>
+      {/* carousel */}     
+      <Carousel/>
+      <DisplayCard/>
+       {bookingAcepted && ( 
+      <PayNowCard handlePayment={handlePayment} username= {"anushka"} email= {"anushka"} phone= {"anushka"} museum= {"anushka"} shows= {"anushka"} tickets={"anushka"}/>  
+  )} 
+  </div>    
     </div>
   );
 };
 
 export default App;
+App.js
+
+

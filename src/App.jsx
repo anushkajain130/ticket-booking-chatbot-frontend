@@ -32,14 +32,11 @@ const App = () => {
 
   // const [user, setUser] = useState({});
 
-  useEffect (() =>{
-    const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
-    console.log(value)
-    // console.log(value.state.user.userId]);
-  })
-  // const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
-  // console.log(value)
-  // console.log(value.state.user.userId);
+
+  const value = JSON.parse(window.localStorage.getItem("botpress-webchat"))
+
+
+  // console.log(value.state.messageHistory[userId]);
 
 
 
@@ -67,13 +64,22 @@ const App = () => {
 //   }
 //  }
 
+let user = {};
+
 
 
 const handlePayment = async () => {
   try {
     // Step 1: Fetch user details from the backend
+
     const userId = value.state.user.userId;
-    const userUrl = `https://ticket-booking-chatbot-chi.vercel.app/user/getuser?userid=${userId}`;
+
+    const curremail = value.state.messageHistory[userId][3];
+
+    console.log('Current email:', curremail); 
+
+ 
+    const userUrl = `https://ticket-booking-chatbot-chi.vercel.app/user/getuser?email=${curremail}`;
     
     const userResponse = await fetch(userUrl);
     
@@ -81,7 +87,7 @@ const handlePayment = async () => {
       throw new Error(`Error fetching user details: ${userResponse.statusText}`);
     }
 
-    const user = await userResponse.json();
+    user = await userResponse.json();
     console.log('User details:', user.users);
 
   
@@ -93,16 +99,18 @@ const handlePayment = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        museum: user.users[0].museum,
-        shows: user.users[0].shows,
-        tickets: user.users[0].nooftickets,
+        museum: user.users.museum,
+        shows: user.users.shows,
+        tickets: user.users.nooftickets,
         details: {
-          name: user.users[0].name,
-          email: user.users[0].email,
-          phone: `+91${user.users[0].phone}`,
+          name: user.users.name,
+          email: user.users.email,
+          phone: `+91${user.users.phone}`,
         },
       }),
     });
+
+    console.log(paymentResponse);
 
     if (!paymentResponse.ok) {
       throw new Error(`Error creating order: ${paymentResponse.statusText}`);
@@ -145,9 +153,9 @@ const handlePayment = async () => {
             order_id: response.razorpay_order_id,
             payment_id: response.razorpay_payment_id,
             signature: response.razorpay_signature,
-            museum: user.users[0].museum, // Replace with actual values //user.museum
-            shows: user.users[0].shows, // Replace with actual values // user.shows
-            tickets: user.users[0].nooftickets, //user.nooftickets
+            museum: user.users.museum, // Replace with actual values //user.museum
+            shows: user.users.shows, // Replace with actual values // user.shows
+            tickets: user.users.nooftickets, //user.nooftickets
           }),
         })
           .then((res) => res.json())
@@ -165,9 +173,9 @@ const handlePayment = async () => {
           });
       },
       prefill: {
-        name:user.users[0].name, //user.name
-        email: user.users[0].email, //user.email
-        contact:`+91${user.users[0].phone}`,
+        name:user.users.name, //user.name
+        email: user.users.email, //user.email
+        contact:`+91${user.users.phone}`,
       },
       theme: {
         color: '#3399cc',
@@ -177,49 +185,14 @@ const handlePayment = async () => {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-  let bookingAcepted = false;
-  // let bookingAcepted = value.state.user.accepted;
+  // let bookingAcepted = false;
+  // let bookingAcepted = false;
   return (
 
 
     <div className="app-container">
-      {/* carousel */}
-  <div className='carousel'>
-      <Swiper
-        grabCursor={true}
-        effect={'creative'}
-        creativeEffect={{
-          prev: {
-            shadow: true,
-            translate: [0, 0, -400],
-          },
-          next: {
-            translate: ['100%', 0, 0],
-          },
-        }}
-        navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 200,  
-          disableOnInteraction: false,  
-        }}
-        // fadeEffect={{
-        //   crossFade: true,
-        // }}
-        modules={[EffectCreative , Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide><img src={image1} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={image2} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={image3} alt="" /></SwiperSlide>
-        <SwiperSlide><img src={image4} alt="" /></SwiperSlide>
-        
-      </Swiper>
-      </div>
-       {bookingAcepted && (
-    <>
+  
+    
       <div className="modal-overlay"></div> {/* Background overlay */}
       <div className="modal-container">
         <h1 className="title">Museum Ticket Booking</h1>
@@ -228,8 +201,8 @@ const handlePayment = async () => {
           Pay Now
         </button>
       </div>
-    </>
-  )}     
+    
+    
     </div>
   );
 };

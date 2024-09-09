@@ -72,7 +72,11 @@ const handlePayment = async () => {
   try {
     // Step 1: Fetch user details from the backend
 
+
     const userId = value.state.user.userId;
+
+    // console.log(value.state.messageHistory[userId]);
+
 
     const curremail = value.state.messageHistory[userId][3];
 
